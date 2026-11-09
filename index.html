@@ -73,7 +73,12 @@
  <div class="master-tabs" role="tablist" aria-label="ตาราง Master"><button id="tab-model" role="tab" aria-selected="true" aria-controls="panel-model" data-master-tab="model">Model / Line Name</button><button id="tab-process" role="tab" aria-selected="false" aria-controls="panel-process" data-master-tab="process">Process Setup</button><button id="tab-replenishment" role="tab" aria-selected="false" aria-controls="panel-replenishment" data-master-tab="replenishment">Replenishment</button></div>
  <div class="master-layout">
   <div class="panel" id="panel-model" role="tabpanel" aria-labelledby="tab-model" data-master-panel="model"><div class="panelhead"><div><h2>Model / Line Name</h2><p>ชื่อ Model ใช้เชื่อมกับแผนต้นทางและ Process Setup</p></div><button data-model-add>+ เพิ่มแถว</button></div><div class="tablewrap"><table><thead><tr><th>Model</th><th>Line Name</th><th>จัดการ</th></tr></thead><tbody data-line-rows></tbody></table></div></div>
-  <div class="panel" id="panel-process" role="tabpanel" aria-labelledby="tab-process" data-master-panel="process" hidden><div class="panelhead"><div><h2>Process Setup</h2><p>Link 1 = แผนหลัก · เรียงกระบวนการจาก Link มากไปน้อย</p></div><button data-process-add>+ เพิ่มแถว</button></div><div class="tablewrap"><table><thead><tr><th>Model</th><th>Process No</th><th>Process Link</th><th>จัดการ</th></tr></thead><tbody data-master-rows></tbody></table></div></div>
+  <div class="panel" id="panel-process" role="tabpanel" aria-labelledby="tab-process" data-master-panel="process" hidden><div class="panelhead"><div><h2>Process Setup</h2><p>Link 1 = แผนหลัก · เรียงกระบวนการจาก Link มากไปน้อย</p></div><button data-process-add>+ เพิ่มแถว</button></div>
+ <div class="filters process-filters">
+  <label>กรอง Model<select data-process-filter><option value="">ทุก Model</option></select></label>
+  <p>Model อ้างอิงจาก Model / Line Name · เลือก Model ก่อนเพิ่ม Process ใหม่</p>
+  <span data-process-filter-count role="status" aria-live="polite"></span>
+ </div><div class="tablewrap"><table><thead><tr><th>Model</th><th>Process No</th><th>Process Link</th><th>จัดการ</th></tr></thead><tbody data-master-rows></tbody></table></div></div>
   <div class="panel" id="panel-replenishment" role="tabpanel" aria-labelledby="tab-replenishment" data-master-panel="replenishment" hidden><div class="panelhead"><div><h2>Replenishment</h2><p>Source No อ้างอิงแถวในแผน · Code คือค่าที่ส่งออก CSV</p></div><button data-replen-add>+ เพิ่มแถว</button></div><div class="tablewrap"><table><thead><tr><th>Source No</th><th>Replenishment</th><th>Code</th><th>จัดการ</th></tr></thead><tbody data-replenishment-rows></tbody></table></div></div>
  </div>
  <div class="toast" data-master-status role="status" aria-live="polite"></div>
@@ -342,13 +347,32 @@ function applyMasterConfig(config){for(const m of Object.keys(Astimo.masters))de
 function loadMasterSetup(){for(const v of Object.values(Astimo.masters))v.links=v.process.map((_,i)=>v.process.length-i);const saved=read('astemo-master-setup-v3',null)||read('astemo-master-setup-v2',null);if(saved){saved.replenishment=saved.replenishment.map((r,i)=>({...r,sourceNo:r.sourceNo??i}));try{applyMasterConfig(validateMasterConfig(saved));}catch{}}}
 let activeMasterTab='model';
 function switchMasterTab(name){activeMasterTab=name;qa('[data-master-tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.masterTab===name)));qa('[data-master-panel]').forEach(p=>p.hidden=p.dataset.masterPanel!==name);}
+function filterProcessRows(){
+ const selected=q('[data-process-filter]').value;
+ const rows=qa('[data-master-rows] tr');
+ let count=0;
+ for(const row of rows){
+  row.hidden=Boolean(selected&&row.querySelector('[data-process-model]').value!==selected);
+  if(!row.hidden)count++;
+ }
+ q('[data-process-filter-count]').textContent=count+' จาก '+rows.length+' กระบวนการ';
+ q('[data-process-add]').disabled=!canMaster()||!selected;
+}
+function refreshProcessFilter(){
+ const filter=q('[data-process-filter]'),selected=filter.value;
+ const models=[...new Set(draftModels())];
+ filter.innerHTML='<option value="">ทุก Model</option>'+models.map(model=>'<option value="'+safe(model)+'">'+safe(model)+'</option>').join('');
+ filter.value=models.includes(selected)?selected:'';
+ filterProcessRows();
+}
+q('[data-process-filter]').addEventListener('change',filterProcessRows);
 function draftModels(){return qa('[data-model-name]').map(i=>i.value.trim().toUpperCase()).filter(Boolean);}
 function modelRow(model='',line=''){const ro=!canMaster();return `<tr><td><input data-model-name data-previous="${safe(model)}" aria-label="Model" maxlength="12" value="${safe(model)}" ${ro?'disabled':''}></td><td><input data-line aria-label="Line Name" maxlength="2" value="${safe(line)}" ${ro?'disabled':''}></td><td><button data-model-delete ${ro?'disabled':''}>ลบ</button></td></tr>`;}
-function processRow(model='',process='',link=''){const ro=!canMaster(),models=[...new Set([...draftModels(),...(model?[model]:[])])];return `<tr class="${Number(link)===1?'is-main':''}"><td><select data-process-model aria-label="Model" ${ro?'disabled':''}><option value="">เลือก Model</option>${models.map(m=>`<option value="${safe(m)}" ${m===model?'selected':''}>${safe(m)}</option>`).join('')}</select></td><td><input data-process-no aria-label="Process No" maxlength="3" value="${safe(process)}" ${ro?'disabled':''}></td><td><input data-process-link aria-label="Process Link" type="number" min="1" max="20" step="1" value="${safe(link)}" ${ro?'disabled':''}></td><td><button data-process-delete ${ro?'disabled':''}>ลบ</button></td></tr>`;}
+function processRow(model='',process='',link=''){const ro=!canMaster(),models=[...new Set([...draftModels(),...(model?[model]:[])])];return `<tr class="${Number(link)===1?'is-main':''}"><td><select data-process-model aria-label="Model จาก Model / Line Name" disabled><option value="">เลือก Model</option>${models.map(m=>`<option value="${safe(m)}" ${m===model?'selected':''}>${safe(m)}</option>`).join('')}</select></td><td><input data-process-no aria-label="Process No" maxlength="3" value="${safe(process)}" ${ro?'disabled':''}></td><td><input data-process-link aria-label="Process Link" type="number" min="1" max="20" step="1" value="${safe(link)}" ${ro?'disabled':''}></td><td><button data-process-delete ${ro?'disabled':''}>ลบ</button></td></tr>`;}
 function replenRow(r){const ro=!canMaster();return `<tr data-source-no="${r.sourceNo}"><td><span class="tag">${r.sourceNo}</span></td><td><input data-replen-name aria-label="Replenishment ${r.sourceNo}" value="${safe(r.name)}" maxlength="60" ${ro?'disabled':''}></td><td><input data-replen-code aria-label="Replenishment Code ${r.sourceNo}" type="number" min="0" max="999" step="1" value="${r.code}" ${ro?'disabled':''}></td><td><button data-replen-delete ${ro||r.sourceNo===0?'disabled':''}>ลบ</button></td></tr>`;}
-function refreshModelOptions(oldName='',newName=''){const models=draftModels();for(const select of qa('[data-process-model]')){const value=oldName&&select.value===oldName?newName:select.value;select.innerHTML='<option value="">เลือก Model</option>'+[...new Set([...models,...(value?[value]:[])])].map(m=>`<option value="${safe(m)}">${safe(m)}</option>`).join('');select.value=value;}}
+function refreshModelOptions(oldName='',newName=''){const models=draftModels();for(const select of qa('[data-process-model]')){const value=oldName&&select.value===oldName?newName:select.value;select.innerHTML='<option value="">เลือก Model</option>'+[...new Set([...models,...(value?[value]:[])])].map(m=>`<option value="${safe(m)}">${safe(m)}</option>`).join('');select.value=value;}refreshProcessFilter();}
 function refreshInputMappings(){const line=q('[data-filter="line"]'),selected=line.value;line.innerHTML='<option value="">ทุกสายการผลิต</option>'+[...new Set(Object.values(Astimo.masters).map(v=>v.line))].sort().map(l=>'<option>'+safe(l)+'</option>').join('');line.value=selected;}
-function masterView(){const ro=!canMaster();q('[data-master-role]').textContent=ro?'อ่านอย่างเดียว':user.role+' · ตั้งค่าได้';q('[data-line-rows]').innerHTML=Object.entries(Astimo.masters).map(([m,v])=>modelRow(m,v.line)).join('');q('[data-master-rows]').innerHTML=Object.entries(Astimo.masters).map(([m,v])=>v.process.map((p,i)=>processRow(m,p,v.links[i])).join('')).join('');q('[data-replenishment-rows]').innerHTML=Astimo.replenishment.map(replenRow).join('');for(const s of ['[data-master-save]','[data-master-cancel]','[data-process-add]','[data-model-add]','[data-replen-add]'])q(s).hidden=ro;switchMasterTab(activeMasterTab);}
+function masterView(){const ro=!canMaster();q('[data-master-role]').textContent=ro?'อ่านอย่างเดียว':user.role+' · ตั้งค่าได้';q('[data-line-rows]').innerHTML=Object.entries(Astimo.masters).map(([m,v])=>modelRow(m,v.line)).join('');q('[data-master-rows]').innerHTML=Object.entries(Astimo.masters).map(([m,v])=>v.process.map((p,i)=>processRow(m,p,v.links[i])).join('')).join('');q('[data-replenishment-rows]').innerHTML=Astimo.replenishment.map(replenRow).join('');for(const s of ['[data-master-save]','[data-master-cancel]','[data-process-add]','[data-model-add]','[data-replen-add]'])q(s).hidden=ro;refreshProcessFilter();switchMasterTab(activeMasterTab);}
 function saveMasterSetup(){if(!canMaster())return;try{const pending={masters:Object.create(null),replenishment:[]};for(const row of qa('[data-line-rows] tr')){const m=row.querySelector('[data-model-name]').value.trim().toUpperCase();if(!m||Object.hasOwn(pending.masters,m))throw Error('Model ต้องไม่ว่างและไม่ซ้ำกัน');pending.masters[m]={line:row.querySelector('[data-line]').value.trim().toUpperCase(),process:[],links:[]};}for(const row of qa('[data-master-rows] tr')){const m=row.querySelector('[data-process-model]').value,p=row.querySelector('[data-process-no]').value.trim().toUpperCase(),raw=row.querySelector('[data-process-link]').value;if(!Object.hasOwn(pending.masters,m))throw Error('Process อ้างอิง Model ที่ไม่มีใน Tab Model กรุณาแก้ไขหรือลบแถวที่เกี่ยวข้อง');if(raw==='')throw Error('กรุณาระบุ Process Link');pending.masters[m].process.push(p);pending.masters[m].links.push(Number(raw));}for(const row of qa('[data-replenishment-rows] tr')){const raw=row.querySelector('[data-replen-code]').value;if(raw==='')throw Error('กรุณาระบุ Replenishment Code');pending.replenishment.push({sourceNo:Number(row.dataset.sourceNo),name:row.querySelector('[data-replen-name]').value.trim(),code:Number(raw)});}validateMasterConfig(pending);for(const r of source){const model=String(r.Model).replace(/^Plan\s+/i,'').trim().toUpperCase();if(!Object.hasOwn(pending.masters,model))throw Error('Model '+model+' ยังมีแผนอ้างอิงอยู่ กรุณาแก้แผนก่อนลบหรือเปลี่ยนชื่อ');if(!pending.replenishment.some(p=>p.sourceNo===Number(r['Replenishment Flag'])))throw Error('Source No '+r['Replenishment Flag']+' ยังมีแผนอ้างอิงอยู่');}if(!save('astemo-master-setup-v3',pending))throw Error('พื้นที่เก็บข้อมูลไม่พร้อม ยังไม่บันทึก Master');applyMasterConfig(pending);invalidate();refreshInputMappings();masterView();planView();toast('[data-master-status]','บันทึก Master ทุก Tab แล้ว · พร้อมใช้ในการนำเข้าและส่งออก CSV');}catch(e){toast('[data-master-status]',e.message,true);}}
 
 function process(){
@@ -417,8 +441,16 @@ q('[data-replen-add]').addEventListener('click',()=>{if(!canMaster())return;cons
 q('[data-replenishment-rows]').addEventListener('click',e=>{const button=e.target.closest('[data-replen-delete]');if(button&&canMaster()&&Number(button.closest('tr').dataset.sourceNo)!==0)button.closest('tr').remove();});
 q('[data-master-save]').addEventListener('click',saveMasterSetup);
 q('[data-master-cancel]').addEventListener('click',()=>{masterView();toast('[data-master-status]','ยกเลิกการแก้ไขแล้ว ใช้ค่าที่บันทึกไว้ล่าสุด');});
-q('[data-process-add]').addEventListener('click',()=>{if(!canMaster())return;q('[data-master-rows]').insertAdjacentHTML('beforeend',processRow(draftModels()[0]||'','',''));toast('[data-master-status]','เพิ่มแถวแล้ว ระบุ Model, Process No และ Process Link แล้วบันทึก');});
-q('[data-master-rows]').addEventListener('click',e=>{const button=e.target.closest('[data-process-delete]');if(button&&canMaster()){button.closest('tr').remove();toast('[data-master-status]','ลบแถวจากแบบฟอร์มแล้ว กดบันทึกเพื่อใช้ค่าใหม่');}});
+q('[data-process-add]').addEventListener('click',()=>{
+ const model=q('[data-process-filter]').value;
+ if(!canMaster()||!model||!draftModels().includes(model))return;
+ q('[data-master-rows]').insertAdjacentHTML('beforeend',processRow(model,'',''));
+ filterProcessRows();
+ const added=q('[data-master-rows]').lastElementChild;
+ added.querySelector('[data-process-no]').focus();
+ toast('[data-master-status]','เพิ่ม Process สำหรับ '+model+' แล้ว ระบุ Process No และ Process Link แล้วบันทึก');
+});
+q('[data-master-rows]').addEventListener('click',e=>{const button=e.target.closest('[data-process-delete]');if(button&&canMaster()){button.closest('tr').remove();filterProcessRows();toast('[data-master-status]','ลบแถวจากแบบฟอร์มแล้ว กดบันทึกเพื่อใช้ค่าใหม่');}});
 q('[data-master-rows]').addEventListener('input',e=>{if(e.target.matches('[data-process-link]'))e.target.closest('tr').classList.toggle('is-main',Number(e.target.value)===1);});
 qa('[data-history-start],[data-history-end],[data-history-search]').forEach(e=>e.addEventListener('input',historyView));
 function sampleDate(offset){const date=new Date(today+'T12:00:00');date.setDate(date.getDate()+offset);return iso(date);}
@@ -914,6 +946,10 @@ body { padding: 0 !important; background: #eaf0f6 !important; }
 #astimo-ui .import-picker-actions button { min-height:44px; }
 #astimo-ui .import-picker .import-choose:not(:disabled) { color:#fff; background:#183a60; border-color:#183a60; }
 #astimo-ui .import-picker .import-choose:not(:disabled):hover { background:#284e76; }
+#astimo-ui .process-filters { align-items:center; border-bottom:1px solid var(--line); }
+#astimo-ui .process-filters p { margin:0; flex:1 1 240px; }
+#astimo-ui [data-process-filter-count] { color:#405978; font-size:13px; }
+#astimo-ui [data-process-model]:disabled { cursor:default; background:#edf3fa; color:#183a60; }
 #astimo-ui [data-screen] > .heading,
 #login-gate .login-heading {
  position:relative;
