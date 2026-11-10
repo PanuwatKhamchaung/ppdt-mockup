@@ -16,13 +16,13 @@
   <aside><div><div class="logo">Astemo</div><div class="eyebrow" style="padding:7px 12px">Production workspace</div></div><nav aria-label="เมนูหลัก"><button class="selected" data-page="operation" aria-label="Operation / CSV" title="Operation / CSV"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg><span>Operation / CSV</span></button><button data-page="plans" aria-label="แผนการผลิต" title="แผนการผลิต"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 9v11"/></svg><span>แผนการผลิต</span></button><button data-page="import" aria-label="นำเข้าข้อมูล" title="นำเข้าข้อมูล"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m-4 4 4-4 4 4M4 16v4h16v-4"/></svg><span>นำเข้าข้อมูล</span></button><button data-page="import-history" aria-label="ประวัติการนำเข้า" title="ประวัติการนำเข้า"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m-4 4 4-4 4 4M4 16v4h16v-4"/></svg><span>ประวัติการนำเข้า</span></button><button data-page="master" aria-label="Master data" title="Master data"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="9" cy="18" r="2"/></svg><span>Master data</span></button><button data-page="history" aria-label="ประวัติส่งออก" title="ประวัติส่งออก"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>ประวัติส่งออก</span></button><button data-page="users" aria-label="ผู้ใช้งาน" title="ผู้ใช้งาน"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 4-4 7-8 9-4-2-8-5-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></svg><span>ผู้ใช้งาน</span></button><button data-page="roles" aria-label="Role Master" title="Role Master"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 4-4 7-8 9-4-2-8-5-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></svg><span>Role Master</span></button><button data-page="access" aria-label="สิทธิ์การใช้งาน" title="สิทธิ์การใช้งาน"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 4-4 7-8 9-4-2-8-5-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></svg><span>สิทธิ์การใช้งาน</span></button></nav><div class="navfoot">GW PC/PD planTool<br><br>PC วางแผน · PD ส่งออก</div></aside>
   <main><header><div class="system-wordmark"><span class="system-name">PRODUCTION PLAN</span> <span class="system-subtitle">DATA TRANSFORMATION</span></div><div class="profile"><span class="demo" data-source-badge>ข้อมูลตัวอย่าง</span><span class="avatar">PD</span><span data-session-name>ผู้ใช้งาน</span><button data-logout class="login-logout">ออกจากระบบ</button></div></header>
   <div class="sample-toolbar"><span data-sample-label></span><div><button data-sample-load>ดูข้อมูลตัวอย่างทุกหน้า</button><button data-sample-exit hidden>กลับข้อมูลที่นำเข้า</button></div></div><div class="content"><section data-screen="operation">
- <div class="heading"><div><div class="eyebrow">Operation center</div><h1>Operation.csv Output Function</h1><p>ส่งออก CSV ได้ 2 แบบ: ทุกวันหลังวันที่อ้างอิง หรือเฉพาะวันและช่วงวันที่เลือก</p></div><span class="demo">DEMO · v23</span></div>
+ <div class="heading"><div><div class="eyebrow">Operation center</div><h1>Operation.csv Output Function</h1><p>ส่งออก CSV ได้ 2 แบบ: ข้อมูลย้อนหลังตามปี หรือข้อมูลตามวันที่เลือก</p></div><span class="demo">DEMO · v23</span></div>
  <div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))"><div class="stat"><span>Today's Date</span><div style="font-size:23px;margin-top:10px" data-op-today></div><p style="margin-top:6px">วันที่ปัจจุบันของเครื่อง</p></div><div class="stat"><span>Last Updated</span><div style="font-size:18px;margin-top:10px" data-op-updated>ยังไม่ประมวลผล</div><p style="margin-top:6px" data-op-cache>DataCache: ข้อมูลตัวอย่าง</p><p class="operation-importer">นำเข้าโดย <strong data-op-importer>—</strong></p></div></div>
  <div class="panel"><div class="panelhead"><h2>01 · CSV Output Process All</h2><span class="tag" data-op-state>พร้อมประมวลผล</span></div>
   <div class="operation-body">
-  <div class="operation-fields"><label>Start Date<input type="text" data-all-start readonly></label></div><div class="operation-actions"><button class="primary" data-op-process>Download CSV ไฟล์</button></div>
-  <p class="operation-help">ดาวน์โหลด CSV ของแผนทุก Line ทั้งแผนหลักและแผนเติมสินค้า ตั้งแต่วันพรุ่งนี้เป็นต้นไป ไม่รวมวันนี้ และไม่จำกัดวันสิ้นสุด</p>
-  <div class="toast" data-op-process-status role="status" aria-live="polite"></div><section class="operation-history" data-all-history hidden aria-labelledby="all-history-title">
+  <div class="operation-fields"><label>Year<select data-all-year aria-label="Year"></select></label></div><div class="operation-actions"><button class="primary" data-op-process>Download CSV ไฟล์</button></div>
+  <p class="operation-help">ดาวน์โหลด CSV ของแผนทุก Line ทั้งแผนหลักและแผนเติมสินค้า ย้อนหลังตามปีที่เลือก ครอบคลุมถึงวันที่ปัจจุบัน</p>
+  <div class="toast" data-op-process-status role="status" aria-live="polite"></div><div class="all-year-preview"><h2>ข้อมูลย้อนหลังตามปี</h2><p data-all-year-count aria-live="polite"></p><div class="tablewrap"><table><thead data-all-year-head></thead><tbody data-all-year-rows></tbody></table></div></div><section class="operation-history" data-all-history hidden aria-labelledby="all-history-title">
     <h2 id="all-history-title">ประวัติผู้ส่งออก CSV ทั้งหมด</h2>
     <p data-operation-history-summary aria-live="polite"></p>
     <div class="tablewrap" data-operation-history-table hidden><table><thead><tr><th>ส่งออกเมื่อ</th><th>ไฟล์ / ผู้ส่งออก</th><th>รายการในไฟล์</th></tr></thead><tbody data-operation-history-rows></tbody></table></div>
@@ -458,7 +458,28 @@ root.addEventListener('click',event=>{
  const invalid=button?.closest('.panel')?.querySelector('.date-field input[aria-invalid]');
  if(invalid){event.stopImmediatePropagation();invalid.reportValidity();}
 },true);
-function updateCache(){const currentDate=iso(new Date());q('[data-op-today]').textContent=displayDate(currentDate);q('[data-all-start]').value=displayDate(nextDate(currentDate));q('[data-op-process]').disabled=busy||!canExport();q('[data-op-cache]').textContent=`DataCache: ${cache.length} รายการ${dirty?' · แผนต้นทางมีการเปลี่ยนแปลง':''}`;q('[data-op-updated]').textContent=displayDate(lastUpdated);q('[data-op-importer]').textContent=importAudit?.updatedBy||'—';q('[data-op-export]').disabled=busy||!source.length||!canExport();q('[data-action="export"]').disabled=dirty||!visible.length||!canExport();}
+function refreshAllYears(){
+ const select=q('[data-all-year]'),current=iso(new Date()),old=select.value;
+ const dates=Astimo.validate(source).clean.map(row=>row.date).filter(date=>date<=current);
+ const years=[...new Set([current.slice(0,4),...dates.map(date=>date.slice(0,4))])].sort().reverse();
+ const options=years.map(year=>'<option value="'+year+'">'+year+'</option>').join('');
+ if(select.innerHTML!==options){
+  select.innerHTML=options;
+  select.value=years.includes(old)?old:current.slice(0,4);
+ }
+ renderAllYear();
+}
+function renderAllYear(){
+ const year=q('[data-all-year]').value,today=iso(new Date());
+ const rows=Astimo.transform(Astimo.validate(source).clean.filter(row=>row.date.slice(0,4)===year&&row.date<=today));
+ q('[data-all-year-count]').textContent='ปี '+year+' · '+rows.length+' รายการ · ถึง '+displayDate(today)+(rows.length>10?' · แสดง 10 รายการแรก':'');
+ q('[data-all-year-head]').innerHTML='<tr>'+Astimo.csvHeaders.map(header=>'<th>'+safe(header)+'</th>').join('')+'</tr>';
+ q('[data-all-year-rows]').innerHTML=Astimo.csvRows(rows.slice(0,10)).map(row=>'<tr class="'+(Number(row[5])>0?'replenishment-row':'')+'">'+row.map(value=>'<td>'+safe(value)+'</td>').join('')+'</tr>').join('')||'<tr><td colspan="6" class="empty">ไม่มีข้อมูลย้อนหลังในปีที่เลือก</td></tr>';
+}
+q('[data-all-year]').addEventListener('change',()=>{
+ renderAllYear();allHistoryView();toast('[data-op-process-status]','');
+});
+function updateCache(){const currentDate=iso(new Date());q('[data-op-today]').textContent=displayDate(currentDate);refreshAllYears();q('[data-op-process]').disabled=busy||!canExport();q('[data-op-cache]').textContent=`DataCache: ${cache.length} รายการ${dirty?' · แผนต้นทางมีการเปลี่ยนแปลง':''}`;q('[data-op-updated]').textContent=displayDate(lastUpdated);q('[data-op-importer]').textContent=importAudit?.updatedBy||'—';q('[data-op-export]').disabled=busy||!source.length||!canExport();q('[data-action="export"]').disabled=dirty||!visible.length||!canExport();}
 function planView(){q('[data-screen="plans"] thead tr').innerHTML=Astimo.csvHeaders.map((h,i)=>'<th class="'+([2,5].includes(i)?'qty':'')+'">'+safe(h)+'</th>').join('');const a=q('[data-filter="start"]').value,b=q('[data-filter="end"]').value||a,line=q('[data-filter="line"]').value,term=q('[data-filter="search"]').value.trim().toLowerCase();visible=!a||b<a?[]:cache.filter(r=>r[1]>=a&&r[1]<=b&&(!line||r[3]===line)&&r[0].toLowerCase().includes(term)&&(type==='all'||(type==='main'?isMainFlag(r[5]):!isMainFlag(r[5]))));planPage=Math.max(0,Math.min(planPage,Math.ceil(visible.length/20)-1));q('[data-rows]').innerHTML=Astimo.csvRows(visible.slice(planPage*20,planPage*20+20)).map(r=>(Number(r[5])>0?'<tr class="replenishment-row">':'<tr>')+r.map((value,i)=>'<td class="'+([0,3,4].includes(i)?'code':[2,5].includes(i)?'qty':'')+'">'+safe(value)+'</td>').join('')+'</tr>').join('')||'<tr><td colspan="6" class="empty">ยังไม่มีข้อมูลในช่วงนี้ · ประมวลผลในหน้า Operation ก่อน</td></tr>';q('[data-count]').textContent=`แสดง ${Math.min(20,Math.max(0,visible.length-planPage*20))} จาก ${visible.length} รายการ · หน้า ${planPage+1}`;q('[data-plan-prev]').disabled=planPage===0;q('[data-plan-next]').disabled=(planPage+1)*20>=visible.length;updateCache();}
 function operationHistoryView(){
  const panel=q('[data-operation-history]');
@@ -482,7 +503,7 @@ function allHistoryView(){
  const panel=q('[data-all-history]');
  panel.hidden=!user||(!canExport()&&!canUnlock());
  if(panel.hidden)return;
- const matching=history.filter(entry=>entry.mode==='all');
+ const year=q('[data-all-year]').value;const matching=history.filter(entry=>entry.mode==='all'&&entry.start.slice(0,4)<=year&&entry.end.slice(0,4)>=year);
  renderExportHistory(panel,matching,matching.length?matching.length+' ไฟล์':'ยังไม่มีประวัติการส่งออกแบบ All');
 }
 function renderExportHistory(panel,matching,summary){
@@ -564,15 +585,15 @@ function saveMasterSetup(){if(!canMaster())return;try{const pending={masters:Obj
 function process(){
  if(!user||busy)return;
  if(!canExport()){toast('[data-op-process-status]','บัญชีนี้ไม่มีสิทธิ์ส่งออก CSV',true);return;}
- const reference=iso(new Date()),firstDay=nextDate(reference),check=Astimo.validate(source);
+ const year=q('[data-all-year]').value,reference=year+'-01-01',cutoff=iso(new Date()),check=Astimo.validate(source);
  if(!source.length||check.errors.length){toast('[data-op-process-status]',!source.length?'ยังไม่มีแผนต้นทาง':check.errors[0],true);return;}
- const eligible=check.clean.filter(r=>r.date>=firstDay),snapshot=Astimo.transform(eligible);
- if(!snapshot.length){toast('[data-op-process-status]','ไม่มีแผนตั้งแต่ '+displayDate(firstDay)+' จึงไม่สร้างไฟล์ CSV',true);return;}
- const token=++job;busy=true;qa('nav button').forEach(b=>b.disabled=true);q('[data-op-process]').disabled=true;q('[data-op-state]').textContent='กำลังเตรียม CSV ทั้งหมด';toast('[data-op-process-status]','ดึงแผนทุก Line ทั้งแผนหลักและเติมสินค้า ตั้งแต่ '+displayDate(firstDay)+'…');updateCache();
+ const eligible=check.clean.filter(r=>r.date.slice(0,4)===year&&r.date<=cutoff),snapshot=Astimo.transform(eligible);
+ if(!snapshot.length){toast('[data-op-process-status]','ไม่มีข้อมูลย้อนหลังในปี '+year+' จึงไม่สร้างไฟล์ CSV',true);return;}
+ const token=++job;busy=true;qa('nav button').forEach(b=>b.disabled=true);q('[data-op-process]').disabled=true;q('[data-op-state]').textContent='กำลังเตรียม CSV ทั้งหมด';toast('[data-op-process-status]','กำลังส่งออกข้อมูลย้อนหลังทุก Line ปี '+year+'…');updateCache();
  timer=setTimeout(()=>{if(token!==job)return;try{
   exportRows(snapshot,snapshot[0][1],snapshot.at(-1)[1],{mode:'all',reference});
   cache=snapshot;dirty=false;lastUpdated=new Date().toLocaleString('sv-SE').replaceAll('-','/');q('[data-stamp]').textContent='อัปเดต '+displayDate(lastUpdated);
-  q('[data-op-state]').textContent='ส่งออก CSV ทั้งหมดแล้ว';toast('[data-op-process-status]',`ดาวน์โหลด CSV ${snapshot.length} รายการ · ตั้งแต่ ${displayDate(firstDay)} · ไม่รวมวันนี้`);
+  q('[data-op-state]').textContent='ส่งออก CSV ทั้งหมดแล้ว';toast('[data-op-process-status]',`ดาวน์โหลด CSV ${snapshot.length} รายการ · ข้อมูลย้อนหลังปี ${year}`);
   q('[data-filter="start"]').value=snapshot[0][1];q('[data-filter="end"]').value=snapshot.at(-1)[1];planView();
  }catch(e){q('[data-op-state]').textContent='ยังไม่ส่งออก';toast('[data-op-process-status]',e.message,true);}finally{finishProcess();}},650);
 }
@@ -732,10 +753,20 @@ function loadSampleData(){if(busy||importBusy)return;if(!demoMode){sampleBackup=
    if (day>0) source.push(makePlan(model,part,day,4 + day * 2 + index,day));
   });
  }
+ const currentPlanRecords=source.slice();
+ const sampleYear=Number(today.slice(0,4));
+ for(let previous=0;previous<=2;previous++){
+  for(const day of ['01-01','01-02']){
+   products.forEach(([model,part,target])=>source.push({
+    Model:model,'Part number':part,'Production date':(sampleYear-previous)+'-'+day,
+    Quantity:target,'Replenishment Flag':0
+   }));
+  }
+ }
  filename='Factory2_ProductionPlan_20261109.xlsx';
  const workbookBytes=Uint8Array.from(atob(window.astemoSampleXlsx.split(',')[1]),char=>char.charCodeAt(0));
  importAudit={updatedAt:today.replaceAll('-','/')+' 08:15:32',updatedBy:'pc.factory2@astemo.example (ตัวอย่าง)',role:'PC'};
- latestImportedFile={filename,blob:new Blob([workbookBytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),records:source,audit:importAudit};
+ latestImportedFile={filename,blob:new Blob([workbookBytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),records:currentPlanRecords,audit:importAudit};
  cache=Astimo.transform(Astimo.validate(source).clean);
  dirty=false;
  lastUpdated=today.replaceAll('-','/')+' 08:20:10';
@@ -1281,5 +1312,12 @@ body { padding: 0 !important; background: #eaf0f6 !important; }
  #astimo-ui .system-wordmark { padding-inline-start:8px; }
  #astimo-ui .system-subtitle { font-size:9px; letter-spacing:.08em; }
 }
+</style><style>
+#astimo-ui .all-year-preview { margin-top:18px; padding-top:15px; border-top:1px solid var(--line); min-width:0; }
+#astimo-ui .all-year-preview .tablewrap { overflow:auto; }
+#astimo-ui .all-year-preview table { min-width:520px; }
+#astimo-ui .all-year-preview :is(th,td) { font-size:12px; padding:8px; }
+#astimo-ui .all-year-preview .replenishment-row td { color:#b00027; }
+#astimo-ui .all-year-preview :is(th,td):nth-child(5) { text-align:left; }
 </style></body></html>
 
