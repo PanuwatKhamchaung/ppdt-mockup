@@ -510,7 +510,7 @@ function renderExportHistory(panel,matching,summary){
  panel.querySelector('[data-operation-history-summary]').textContent=summary;
  panel.querySelector('[data-operation-history-table]').hidden=!matching.length;
  panel.querySelector('[data-operation-history-rows]').innerHTML=matching.map(entry=>{
-  const status=entry.unlockedAt
+  const status=entry.mode==='all'?'':entry.unlockedAt
    ? '<span class="unlock-status">ปลดล็อกโดย '+safe(entry.unlockedBy)+' · '+safe(displayDate(entry.unlockedAt))+'<br>เหตุผล: '+safe(entry.unlockReason||'—')+'</span>'
    : canUnlock()&&entry.keys?.length
     ? '<details class="unlock-details"><summary>ปลดล็อก CSV</summary><form data-unlock-export="'+history.indexOf(entry)+'"><label>เหตุผลในการปลดล็อก<textarea name="reason" required maxlength="500" rows="2" placeholder="ระบุเหตุผลก่อนปลดล็อก"></textarea></label><button type="submit" class="unlock-csv">ยืนยันปลดล็อก</button></form></details>'
@@ -524,7 +524,7 @@ root.addEventListener('submit',event=>{
  event.preventDefault();
  if(!canUnlock()||busy)return;
  const index=Number(form.dataset.unlockExport),entry=history[index];
- if(!entry?.keys?.length||entry.unlockedAt)return;
+ if(!entry?.keys?.length||entry.unlockedAt||entry.mode==='all')return;
  const input=form.elements.reason,reason=input.value.trim();
  if(!reason||reason.length>500){
   input.setCustomValidity('กรุณาระบุเหตุผล 1–500 ตัวอักษร');
@@ -544,7 +544,7 @@ root.addEventListener('submit',event=>{
  historyView();
 });
 qa('[data-op-start],[data-op-end]').forEach(field=>field.addEventListener('change',operationHistoryView));
-function historyView(){operationHistoryView();allHistoryView();const term=q('[data-history-search]').value.toLowerCase(),a=q('[data-history-start]').value,b=q('[data-history-end]').value;const list=a&&b&&b<a?[]:history.filter(h=>(!a||h.time.slice(0,10)>=a)&&(!b||h.time.slice(0,10)<=b)&&[h.file,h.user,h.start,h.end,displayDate(h.start),displayDate(h.end),displayDate(h.display)].join(' ').toLowerCase().includes(term));q('[data-history-rows]').innerHTML=list.map(h=>`<tr><td>${safe(displayDate(h.display))}</td><td>${safe(displayDate(h.start))} → ${safe(displayDate(h.end))}</td><td>${h.mode==='all'?'ALL':'Date Select'}</td><td class="code">${safe(h.file)}</td><td>${h.count}</td><td>${safe(h.user)} · ${safe(h.role)}</td><td>${h.unlockedAt?safe(h.unlockedBy)+' · '+safe(displayDate(h.unlockedAt))+'<br>'+safe(h.unlockReason||'—'):'ล็อกการส่งออกซ้ำ'}</td></tr>`).join('')||'<tr><td colspan="7" class="empty">ไม่พบประวัติการส่งออก</td></tr>';q('[data-history-count]').textContent=`${list.length} รายการ · ${demoMode?'ข้อมูลตัวอย่าง ไม่บันทึกในประวัติจริง':'เก็บในเบราว์เซอร์เครื่องนี้'}`;} 
+function historyView(){operationHistoryView();allHistoryView();const term=q('[data-history-search]').value.toLowerCase(),a=q('[data-history-start]').value,b=q('[data-history-end]').value;const list=a&&b&&b<a?[]:history.filter(h=>(!a||h.time.slice(0,10)>=a)&&(!b||h.time.slice(0,10)<=b)&&[h.file,h.user,h.start,h.end,displayDate(h.start),displayDate(h.end),displayDate(h.display)].join(' ').toLowerCase().includes(term));q('[data-history-rows]').innerHTML=list.map(h=>`<tr><td>${safe(displayDate(h.display))}</td><td>${safe(displayDate(h.start))} → ${safe(displayDate(h.end))}</td><td>${h.mode==='all'?'ALL':'Date Select'}</td><td class="code">${safe(h.file)}</td><td>${h.count}</td><td>${safe(h.user)} · ${safe(h.role)}</td><td>${h.mode==='all'?'History Log':h.unlockedAt?safe(h.unlockedBy)+' · '+safe(displayDate(h.unlockedAt))+'<br>'+safe(h.unlockReason||'—'):'ล็อกการส่งออกซ้ำ'}</td></tr>`).join('')||'<tr><td colspan="7" class="empty">ไม่พบประวัติการส่งออก</td></tr>';q('[data-history-count]').textContent=`${list.length} รายการ · ${demoMode?'ข้อมูลตัวอย่าง ไม่บันทึกในประวัติจริง':'เก็บในเบราว์เซอร์เครื่องนี้'}`;} 
 function validateMasterConfig(config){
  if(!config||!config.masters||!Object.keys(config.masters).length||!Array.isArray(config.replenishment)||!config.replenishment.length)throw Error('ต้องมี Model และ Replenishment อย่างน้อย 1 แถว');
  for(const [m,v] of Object.entries(config.masters)){if(!/^[A-Z][A-Z0-9_-]{0,11}$/.test(m)||['CONSTRUCTOR','PROTOTYPE','__PROTO__'].includes(m))throw Error('ชื่อ Model ต้องเริ่มด้วย A–Z ตามด้วย A–Z, 0–9, _ หรือ - สูงสุด 12 ตัว');if(!v||!/^[A-Z0-9]{2}$/.test(v.line))throw Error('Line Name ของ '+m+' ต้องมี 2 ตัวอักษร');if(!Array.isArray(v.process)||!v.process.length||v.process.length>20||!Array.isArray(v.links)||v.links.length!==v.process.length)throw Error(m+': ต้องมี Process 1–20 แถว กรุณาเพิ่มใน Tab Process Setup');if(v.process.some(p=>!/^[A-Z0-9]{3}$/.test(p))||new Set(v.process).size!==v.process.length)throw Error(m+': Process No ต้องมี 3 ตัวอักษรและไม่ซ้ำ');if([...v.links].sort((a,b)=>a-b).some((n,i)=>!Number.isInteger(n)||n!==i+1))throw Error(m+': Process Link ต้องเรียง 1–'+v.process.length+' ไม่ซ้ำและไม่ขาด');}
@@ -602,7 +602,7 @@ function finishProcess(){busy=false;qa('[data-op-demo],[data-op-import],[data-op
 const rowKey=r=>JSON.stringify(r);
 function exportRows(rows,a,b,options={}){
  if(!canExport())throw Error('บัญชีนี้ไม่มีสิทธิ์ส่งออก CSV');
- const exported=new Set(history.filter(entry=>!entry.unlockedAt).flatMap(entry=>entry.keys||[]));if(rows.some(r=>exported.has(rowKey(r))))throw Error('มีรายการที่เคยส่งออกแล้ว ให้ Admin หรือ PC ระบุเหตุผลเพื่อปลดล็อกไฟล์ก่อนส่งออกซ้ำ');
+ const exported=new Set(history.filter(entry=>entry.mode!=='all'&&!entry.unlockedAt).flatMap(entry=>entry.keys||[]));if(options.mode!=='all'&&rows.some(r=>exported.has(rowKey(r))))throw Error('มีรายการที่เคยส่งออกแล้ว ให้ Admin หรือ PC ระบุเหตุผลเพื่อปลดล็อกไฟล์ก่อนส่งออกซ้ำ');
  const [year,month,day]=a.split('-');
  const file='Process Planing_'+year+Number(month)+Number(day)+'.csv',csv=Astimo.csv(rows),now=new Date();
  const entry={time:iso(now)+'T'+now.toTimeString().slice(0,8),display:now.toLocaleString('th-TH'),start:a,end:b,file,count:rows.length,user:user.name,role:user.role,mode:options.mode||'range',reference:options.reference||'',keys:rows.map(rowKey)};
