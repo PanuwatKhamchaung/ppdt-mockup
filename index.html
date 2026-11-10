@@ -69,16 +69,16 @@
 </section>
 
    <section data-screen="master" hidden>
- <div class="heading"><div><div class="eyebrow">Master Setup</div><h1>ตั้งค่าข้อมูล Master</h1><p>จัดการ Model, Process และ Replenishment สำหรับแปลงแผนการผลิต</p></div><span class="demo" data-master-role></span></div>
- <div class="master-tabs" role="tablist" aria-label="ตาราง Master"><button id="tab-model" role="tab" aria-selected="true" aria-controls="panel-model" data-master-tab="model">Model / Line Name</button><button id="tab-process" role="tab" aria-selected="false" aria-controls="panel-process" data-master-tab="process">Process Setup</button><button id="tab-replenishment" role="tab" aria-selected="false" aria-controls="panel-replenishment" data-master-tab="replenishment">Replenishment</button></div>
+ <div class="heading"><div><div class="eyebrow">Master Setup</div><h1>ตั้งค่าข้อมูล Master</h1><p>จัดการ Line Name, Process และ Replenishment สำหรับแปลงแผนการผลิต</p></div><span class="demo" data-master-role></span></div>
+ <div class="master-tabs" role="tablist" aria-label="ตาราง Master"><button id="tab-model" role="tab" aria-selected="true" aria-controls="panel-model" data-master-tab="model">Line Name / Line Code</button><button id="tab-process" role="tab" aria-selected="false" aria-controls="panel-process" data-master-tab="process">Process Setup</button><button id="tab-replenishment" role="tab" aria-selected="false" aria-controls="panel-replenishment" data-master-tab="replenishment">Replenishment</button></div>
  <div class="master-layout">
-  <div class="panel" id="panel-model" role="tabpanel" aria-labelledby="tab-model" data-master-panel="model"><div class="panelhead"><div><h2>Model / Line Name</h2><p>ชื่อ Model ใช้เชื่อมกับแผนต้นทางและ Process Setup</p></div><button data-model-add>+ เพิ่มแถว</button></div><div class="tablewrap"><table><thead><tr><th>Model</th><th>Line Name</th><th>จัดการ</th></tr></thead><tbody data-line-rows></tbody></table></div></div>
+  <div class="panel" id="panel-model" role="tabpanel" aria-labelledby="tab-model" data-master-panel="model"><div class="panelhead"><div><h2>Line Name / Line Code</h2><p>ชื่อ Line Name ใช้เชื่อมกับแผนต้นทางและ Process Setup</p></div><button data-model-add>+ เพิ่มแถว</button></div><div class="tablewrap"><table><thead><tr><th>Line Name</th><th>Line Code</th><th>จัดการ</th></tr></thead><tbody data-line-rows></tbody></table></div></div>
   <div class="panel" id="panel-process" role="tabpanel" aria-labelledby="tab-process" data-master-panel="process" hidden><div class="panelhead"><div><h2>Process Setup</h2><p>Link 1 = แผนหลัก · เรียงกระบวนการจาก Link มากไปน้อย</p></div><button data-process-add>+ เพิ่มแถว</button></div>
  <div class="filters process-filters">
-  <label>กรอง Model<select data-process-filter><option value="">ทุก Model</option></select></label>
-  <p>Model อ้างอิงจาก Model / Line Name · เลือก Model ก่อนเพิ่ม Process ใหม่</p>
+  <label>กรอง Line Name<select data-process-filter><option value="">ทุก Model</option></select></label>
+  <p>Line Name อ้างอิงจาก Line Name / Line Code · เลือก Line Name ก่อนเพิ่ม Process ใหม่</p>
   <span data-process-filter-count role="status" aria-live="polite"></span>
- </div><div class="tablewrap"><table><thead><tr><th>Model</th><th>Process No</th><th>Process Link</th><th>จัดการ</th></tr></thead><tbody data-master-rows></tbody></table></div></div>
+ </div><div class="tablewrap"><table><thead><tr><th>Line Name</th><th>Process No</th><th>Process Link</th><th>จัดการ</th></tr></thead><tbody data-master-rows></tbody></table></div></div>
   <div class="panel" id="panel-replenishment" role="tabpanel" aria-labelledby="tab-replenishment" data-master-panel="replenishment" hidden><div class="panelhead"><div><h2>Replenishment</h2><p>Source No อ้างอิงแถวในแผน · Code คือค่าที่ส่งออก CSV</p></div><button data-replen-add>+ เพิ่มแถว</button></div><div class="tablewrap"><table><thead><tr><th>Source No</th><th>Replenishment</th><th>Code</th><th>จัดการ</th></tr></thead><tbody data-replenishment-rows></tbody></table></div></div>
  </div>
  <div class="toast" data-master-status role="status" aria-live="polite"></div>
@@ -88,11 +88,11 @@
 
   <section data-screen="history" hidden>
  <div class="heading"><div><div class="eyebrow">Export audit</div><h1>ประวัติการส่งออก CSV</h1><p>ค้นหาวันที่ส่งออก ช่วงแผน ผู้ใช้งาน และชื่อไฟล์</p></div><span class="demo">ประวัติในเบราว์เซอร์นี้</span></div>
- <div class="panel"><div class="filters"><label>วันที่ส่งออกเริ่มต้น<input type="date" data-history-start></label><label>ถึงวันที่<input type="date" data-history-end></label><label>ค้นหาประวัติ<input type="search" data-history-search placeholder="ชื่อไฟล์ / ผู้ใช้งาน / วันที่แผน"></label></div><div class="tablewrap"><table><thead><tr><th>ส่งออกเมื่อ</th><th>ช่วงวันที่แผน</th><th>วิธีส่งออก</th><th>ไฟล์</th><th>รายการ</th><th>ผู้ใช้งาน</th></tr></thead><tbody data-history-rows></tbody></table></div><div class="tablefoot"><span data-history-count></span><span>บันทึกเมื่อสั่งดาวน์โหลด · ไม่ยืนยันการบันทึกไฟล์ลงดิสก์</span></div></div>
+ <div class="panel"><div class="filters"><label>วันที่ส่งออกเริ่มต้น<input type="date" data-history-start></label><label>ถึงวันที่<input type="date" data-history-end></label><label>ค้นหาประวัติ<input type="search" data-history-search placeholder="ชื่อไฟล์ / ผู้ใช้งาน / วันที่แผน"></label></div><div class="tablewrap"><table><thead><tr><th>ส่งออกเมื่อ</th><th>ช่วงวันที่แผน</th><th>วิธีส่งออก</th><th>ไฟล์</th><th>รายการ</th><th>ผู้ใช้งาน</th><th>การปลดล็อก / เหตุผล</th></tr></thead><tbody data-history-rows></tbody></table></div><div class="tablefoot"><span data-history-count></span><span>บันทึกเมื่อสั่งดาวน์โหลด · ไม่ยืนยันการบันทึกไฟล์ลงดิสก์</span></div></div>
 </section>
 <section data-screen="access" hidden>
  <div class="heading"><div><div class="eyebrow">Access control</div><h1>สิทธิ์การใช้งาน</h1><p>ตัวอย่างการแบ่งหน้าที่สำหรับ PC, PD และผู้ดูแลระบบ</p></div><span class="demo">กติกาต้นแบบ — รอยืนยัน</span></div>
- <div class="panel"><div class="panelhead"><h2>Permission Matrix · ตัวอย่างบัญชีตามบทบาท</h2></div><div class="tablewrap"><table><thead><tr><th>การทำงาน</th><th>PC · pc</th><th>PD · pd</th><th>Admin · demo</th></tr></thead><tbody><tr><td>ดูแผนและ Master Register</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>นำเข้าไฟล์แผน</td><td>✓</td><td>—</td><td>✓</td></tr><tr><td>CSV Output Process All</td><td>—</td><td>✓</td><td>✓</td></tr><tr><td>ส่งออก CSV / ดูประวัติ</td><td>—</td><td>✓</td><td>✓</td></tr><tr><td>แก้ไข Master Register</td><td>✓</td><td>—</td><td>✓</td></tr><tr><td>ปลดล็อกไฟล์ CSV เพื่อส่งออกซ้ำ</td><td>—</td><td>—</td><td>✓</td></tr><tr><td>ดูตารางสิทธิ์</td><td>—</td><td>—</td><td>✓</td></tr></tbody></table></div></div>
+ <div class="panel"><div class="panelhead"><h2>Permission Matrix · ตัวอย่างบัญชีตามบทบาท</h2></div><div class="tablewrap"><table><thead><tr><th>การทำงาน</th><th>PC · pc</th><th>PD · pd</th><th>Admin · demo</th></tr></thead><tbody><tr><td>ดูแผนและ Master Register</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>นำเข้าไฟล์แผน</td><td>✓</td><td>—</td><td>✓</td></tr><tr><td>CSV Output Process All</td><td>—</td><td>✓</td><td>✓</td></tr><tr><td>ส่งออก CSV</td><td>—</td><td>✓</td><td>✓</td></tr><tr><td>ดูประวัติการส่งออก</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>แก้ไข Master Register</td><td>✓</td><td>—</td><td>✓</td></tr><tr><td>ปลดล็อก CSV พร้อมเหตุผล</td><td>✓</td><td>—</td><td>✓</td></tr><tr><td>ดูตารางสิทธิ์</td><td>—</td><td>—</td><td>✓</td></tr></tbody></table></div></div>
  <div class="notice">ต้นแบบจำลองสิทธิ์เฉพาะหน้าจอ · ระบบจริงตาม PDF ต้องตรวจสิทธิ์ที่ GW Local Server และฐานข้อมูล</div>
  <div class="panel"><div class="panelhead"><h2>สภาพแวดล้อมตาม Requirement</h2></div><div class="sheetrow"><span>รูปแบบระบบ</span><span>Web application บน GW Local Server</span></div><div class="sheetrow"><span>เครือข่ายผู้ใช้งาน</span><span>OA / FA</span></div><div class="sheetrow"><span>ฐานข้อมูลที่เสนอ</span><span class="code">production_plan_db</span></div><div class="sheetrow"><span>ปลายทางของ CSV</span><span>PMS</span></div></div>
 </section>
@@ -229,7 +229,7 @@ const isMainFlag=code=>code===Astimo.replenishment[0].code;
 const flagLabel=code=>Astimo.replenishment.find(r=>r.code===code)?.name??String(code);
 const canImport=()=>user&&['PC','Admin'].includes(user.role),canExport=()=>user&&['PD','Admin'].includes(user.role),isAdmin=()=>user?.role==='Admin',canMaster=()=>user&&['PC','Admin'].includes(user.role);
 function toast(selector,text,error=false){const e=q(selector);e.textContent=text;e.style.color=error?'#aa1733':'#465d74';e.setAttribute('role',error?'alert':'status');}
-function page(name){if(!user||busy)return;if(name==='operation'){operationHistoryView();allHistoryView();}if(name==='import'&&!canImport()||name==='history'&&!canExport()||name==='access'&&!isAdmin())return;qa('[data-page]').forEach(b=>{b.classList.toggle('selected',b.dataset.page===name);b.setAttribute('aria-current',b.dataset.page===name?'page':'false');});qa('[data-screen]').forEach(s=>s.hidden=s.dataset.screen!==name);if(name==='history')historyView();if(name==='master')masterView();}
+function page(name){if(!user||busy)return;if(name==='operation'){operationHistoryView();allHistoryView();}if(name==='import'&&!canImport()||name==='history'&&!canExport()&&!canMaster()||name==='access'&&!isAdmin())return;qa('[data-page]').forEach(b=>{b.classList.toggle('selected',b.dataset.page===name);b.setAttribute('aria-current',b.dataset.page===name?'page':'false');});qa('[data-screen]').forEach(s=>s.hidden=s.dataset.screen!==name);if(name==='history')historyView();if(name==='master')masterView();}
 function download(name,text){const u=URL.createObjectURL(new Blob([text],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);}
 function invalidate(){dirty=true;q('[data-preview]').hidden=true;q('[data-op-state]').textContent='มีข้อมูลเปลี่ยนแปลง';updateCache();}
 function displayDate(value){
@@ -288,7 +288,7 @@ function updateCache(){const currentDate=iso(new Date());q('[data-op-today]').te
 function planView(){q('[data-screen="plans"] thead tr').innerHTML=Astimo.csvHeaders.map((h,i)=>'<th class="'+([2,5].includes(i)?'qty':'')+'">'+safe(h)+'</th>').join('');const a=q('[data-filter="start"]').value,b=q('[data-filter="end"]').value||a,line=q('[data-filter="line"]').value,term=q('[data-filter="search"]').value.trim().toLowerCase();visible=!a||b<a?[]:cache.filter(r=>r[1]>=a&&r[1]<=b&&(!line||r[3]===line)&&r[0].toLowerCase().includes(term)&&(type==='all'||(type==='main'?isMainFlag(r[5]):!isMainFlag(r[5]))));planPage=Math.max(0,Math.min(planPage,Math.ceil(visible.length/20)-1));q('[data-rows]').innerHTML=Astimo.csvRows(visible.slice(planPage*20,planPage*20+20)).map(r=>(Number(r[5])>0?'<tr class="replenishment-row">':'<tr>')+r.map((value,i)=>'<td class="'+([0,3,4].includes(i)?'code':[2,5].includes(i)?'qty':'')+'">'+safe(value)+'</td>').join('')+'</tr>').join('')||'<tr><td colspan="6" class="empty">ยังไม่มีข้อมูลในช่วงนี้ · ประมวลผลในหน้า Operation ก่อน</td></tr>';q('[data-count]').textContent=`แสดง ${Math.min(20,Math.max(0,visible.length-planPage*20))} จาก ${visible.length} รายการ · หน้า ${planPage+1}`;q('[data-plan-prev]').disabled=planPage===0;q('[data-plan-next]').disabled=(planPage+1)*20>=visible.length;updateCache();}
 function operationHistoryView(){
  const panel=q('[data-operation-history]');
- panel.hidden=!user||!canExport();
+ panel.hidden=!user||(!canExport()&&!canMaster());
  if(panel.hidden)return;
  const start=q('[data-op-start]').value,end=q('[data-op-end]').value||start;
  const valid=start&&end>=start;
@@ -306,7 +306,7 @@ function operationHistoryView(){
 }
 function allHistoryView(){
  const panel=q('[data-all-history]');
- panel.hidden=!user||!canExport();
+ panel.hidden=!user||(!canExport()&&!canMaster());
  if(panel.hidden)return;
  const matching=history.filter(entry=>entry.mode==='all');
  renderExportHistory(panel,matching,matching.length?matching.length+' ไฟล์':'ยังไม่มีประวัติการส่งออกแบบ All');
@@ -316,28 +316,40 @@ function renderExportHistory(panel,matching,summary){
  panel.querySelector('[data-operation-history-table]').hidden=!matching.length;
  panel.querySelector('[data-operation-history-rows]').innerHTML=matching.map(entry=>{
   const status=entry.unlockedAt
-   ? '<span class="unlock-status">ปลดล็อกโดย '+safe(entry.unlockedBy)+' · '+safe(displayDate(entry.unlockedAt))+'</span>'
-   : isAdmin()&&entry.keys?.length
-    ? '<button type="button" class="unlock-csv" data-unlock-export="'+history.indexOf(entry)+'">ปลดล็อก CSV</button>'
+   ? '<span class="unlock-status">ปลดล็อกโดย '+safe(entry.unlockedBy)+' · '+safe(displayDate(entry.unlockedAt))+'<br>เหตุผล: '+safe(entry.unlockReason||'—')+'</span>'
+   : canMaster()&&entry.keys?.length
+    ? '<details class="unlock-details"><summary>ปลดล็อก CSV</summary><form data-unlock-export="'+history.indexOf(entry)+'"><label>เหตุผลในการปลดล็อก<textarea name="reason" required maxlength="500" rows="2" placeholder="ระบุเหตุผลก่อนปลดล็อก"></textarea></label><button type="submit" class="unlock-csv">ยืนยันปลดล็อก</button></form></details>'
     : '<span class="unlock-status">ล็อกการส่งออกซ้ำ</span>';
   return '<tr><td>'+safe(displayDate(entry.time.replace('T',' ')))+'</td><td><span class="code">'+safe(entry.file)+'</span><br>'+safe(entry.user)+'</td><td>'+safe(entry.count)+'<div>'+status+'</div></td></tr>';
  }).join('');
 }
-root.addEventListener('click',event=>{
- const button=event.target.closest('[data-unlock-export]');
- if(!button||!isAdmin()||busy)return;
- const entry=history[Number(button.dataset.unlockExport)];
+root.addEventListener('submit',event=>{
+ const form=event.target.closest('[data-unlock-export]');
+ if(!form)return;
+ event.preventDefault();
+ if(!canMaster()||busy)return;
+ const index=Number(form.dataset.unlockExport),entry=history[index];
  if(!entry?.keys?.length||entry.unlockedAt)return;
+ const input=form.elements.reason,reason=input.value.trim();
+ if(!reason||reason.length>500){
+  input.setCustomValidity('กรุณาระบุเหตุผล 1–500 ตัวอักษร');
+  input.reportValidity();
+  input.addEventListener('input',()=>input.setCustomValidity(''),{once:true});
+  return;
+ }
  const now=new Date();
- entry.unlockedAt=iso(now)+' '+now.toTimeString().slice(0,8);
- entry.unlockedBy=user.name;
- save('astemo-pdf-history-v1',history);
- const status=button.closest('[data-all-history]')?'[data-op-process-status]':'[data-op-export-status]';
+ const status=form.closest('[data-all-history]')?'[data-op-process-status]':'[data-op-export-status]';
+ history[index]={...entry,unlockedAt:iso(now)+' '+now.toTimeString().slice(0,8),unlockedBy:user.name,unlockedRole:user.role,unlockReason:reason};
+ if(!save('astemo-pdf-history-v1',history)){
+  history[index]=entry;
+  toast(status,'บันทึกการปลดล็อกไม่สำเร็จ กรุณาลองอีกครั้ง',true);
+  return;
+ }
  toast(status,'ปลดล็อก '+entry.file+' แล้ว สามารถเลือกวันที่และส่งออกซ้ำได้');
  historyView();
 });
 qa('[data-op-start],[data-op-end]').forEach(field=>field.addEventListener('change',operationHistoryView));
-function historyView(){operationHistoryView();allHistoryView();const term=q('[data-history-search]').value.toLowerCase(),a=q('[data-history-start]').value,b=q('[data-history-end]').value;const list=a&&b&&b<a?[]:history.filter(h=>(!a||h.time.slice(0,10)>=a)&&(!b||h.time.slice(0,10)<=b)&&[h.file,h.user,h.start,h.end,displayDate(h.start),displayDate(h.end),displayDate(h.display)].join(' ').toLowerCase().includes(term));q('[data-history-rows]').innerHTML=list.map(h=>`<tr><td>${safe(displayDate(h.display))}</td><td>${safe(displayDate(h.start))} → ${safe(displayDate(h.end))}</td><td>${h.mode==='all'?'ALL':'Date Select'}</td><td class="code">${safe(h.file)}</td><td>${h.count}</td><td>${safe(h.user)} · ${safe(h.role)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">ไม่พบประวัติการส่งออก</td></tr>';q('[data-history-count]').textContent=`${list.length} รายการ · ${demoMode?'ข้อมูลตัวอย่าง ไม่บันทึกในประวัติจริง':'เก็บในเบราว์เซอร์เครื่องนี้'}`;} 
+function historyView(){operationHistoryView();allHistoryView();const term=q('[data-history-search]').value.toLowerCase(),a=q('[data-history-start]').value,b=q('[data-history-end]').value;const list=a&&b&&b<a?[]:history.filter(h=>(!a||h.time.slice(0,10)>=a)&&(!b||h.time.slice(0,10)<=b)&&[h.file,h.user,h.start,h.end,displayDate(h.start),displayDate(h.end),displayDate(h.display)].join(' ').toLowerCase().includes(term));q('[data-history-rows]').innerHTML=list.map(h=>`<tr><td>${safe(displayDate(h.display))}</td><td>${safe(displayDate(h.start))} → ${safe(displayDate(h.end))}</td><td>${h.mode==='all'?'ALL':'Date Select'}</td><td class="code">${safe(h.file)}</td><td>${h.count}</td><td>${safe(h.user)} · ${safe(h.role)}</td><td>${h.unlockedAt?safe(h.unlockedBy)+' · '+safe(displayDate(h.unlockedAt))+'<br>'+safe(h.unlockReason||'—'):'ล็อกการส่งออกซ้ำ'}</td></tr>`).join('')||'<tr><td colspan="7" class="empty">ไม่พบประวัติการส่งออก</td></tr>';q('[data-history-count]').textContent=`${list.length} รายการ · ${demoMode?'ข้อมูลตัวอย่าง ไม่บันทึกในประวัติจริง':'เก็บในเบราว์เซอร์เครื่องนี้'}`;} 
 function validateMasterConfig(config){
  if(!config||!config.masters||!Object.keys(config.masters).length||!Array.isArray(config.replenishment)||!config.replenishment.length)throw Error('ต้องมี Model และ Replenishment อย่างน้อย 1 แถว');
  for(const [m,v] of Object.entries(config.masters)){if(!/^[A-Z][A-Z0-9_-]{0,11}$/.test(m)||['CONSTRUCTOR','PROTOTYPE','__PROTO__'].includes(m))throw Error('ชื่อ Model ต้องเริ่มด้วย A–Z ตามด้วย A–Z, 0–9, _ หรือ - สูงสุด 12 ตัว');if(!v||!/^[A-Z0-9]{2}$/.test(v.line))throw Error('Line Name ของ '+m+' ต้องมี 2 ตัวอักษร');if(!Array.isArray(v.process)||!v.process.length||v.process.length>20||!Array.isArray(v.links)||v.links.length!==v.process.length)throw Error(m+': ต้องมี Process 1–20 แถว กรุณาเพิ่มใน Tab Process Setup');if(v.process.some(p=>!/^[A-Z0-9]{3}$/.test(p))||new Set(v.process).size!==v.process.length)throw Error(m+': Process No ต้องมี 3 ตัวอักษรและไม่ซ้ำ');if([...v.links].sort((a,b)=>a-b).some((n,i)=>!Number.isInteger(n)||n!==i+1))throw Error(m+': Process Link ต้องเรียง 1–'+v.process.length+' ไม่ซ้ำและไม่ขาด');}
@@ -367,10 +379,10 @@ function refreshProcessFilter(){
 }
 q('[data-process-filter]').addEventListener('change',filterProcessRows);
 function draftModels(){return qa('[data-model-name]').map(i=>i.value.trim().toUpperCase()).filter(Boolean);}
-function modelRow(model='',line=''){const ro=!canMaster();return `<tr><td><input data-model-name data-previous="${safe(model)}" aria-label="Model" maxlength="12" value="${safe(model)}" ${ro?'disabled':''}></td><td><input data-line aria-label="Line Name" maxlength="2" value="${safe(line)}" ${ro?'disabled':''}></td><td><button data-model-delete ${ro?'disabled':''}>ลบ</button></td></tr>`;}
-function processRow(model='',process='',link=''){const ro=!canMaster(),models=[...new Set([...draftModels(),...(model?[model]:[])])];return `<tr class="${Number(link)===1?'is-main':''}"><td><select data-process-model aria-label="Model จาก Model / Line Name" disabled><option value="">เลือก Model</option>${models.map(m=>`<option value="${safe(m)}" ${m===model?'selected':''}>${safe(m)}</option>`).join('')}</select></td><td><input data-process-no aria-label="Process No" maxlength="3" value="${safe(process)}" ${ro?'disabled':''}></td><td><input data-process-link aria-label="Process Link" type="number" min="1" max="20" step="1" value="${safe(link)}" ${ro?'disabled':''}></td><td><button data-process-delete ${ro?'disabled':''}>ลบ</button></td></tr>`;}
+function modelRow(model='',line=''){const ro=!canMaster();return `<tr><td><input data-model-name data-previous="${safe(model)}" aria-label="Line Name" maxlength="12" value="${safe(model)}" ${ro?'disabled':''}></td><td><input data-line aria-label="Line Code" maxlength="2" value="${safe(line)}" ${ro?'disabled':''}></td><td><button data-model-delete ${ro?'disabled':''}>ลบ</button></td></tr>`;}
+function processRow(model='',process='',link=''){const ro=!canMaster(),models=[...new Set([...draftModels(),...(model?[model]:[])])];return `<tr class="${Number(link)===1?'is-main':''}"><td><select data-process-model aria-label="Line Name จาก Line Name / Line Code" disabled><option value="">เลือก Line Name</option>${models.map(m=>`<option value="${safe(m)}" ${m===model?'selected':''}>${safe(m)}</option>`).join('')}</select></td><td><input data-process-no aria-label="Process No" maxlength="3" value="${safe(process)}" ${ro?'disabled':''}></td><td><input data-process-link aria-label="Process Link" type="number" min="1" max="20" step="1" value="${safe(link)}" ${ro?'disabled':''}></td><td><button data-process-delete ${ro?'disabled':''}>ลบ</button></td></tr>`;}
 function replenRow(r){const ro=!canMaster();return `<tr data-source-no="${r.sourceNo}"><td><span class="tag">${r.sourceNo}</span></td><td><input data-replen-name aria-label="Replenishment ${r.sourceNo}" value="${safe(r.name)}" maxlength="60" ${ro?'disabled':''}></td><td><input data-replen-code aria-label="Replenishment Code ${r.sourceNo}" type="number" min="0" max="999" step="1" value="${r.code}" ${ro?'disabled':''}></td><td><button data-replen-delete ${ro||r.sourceNo===0?'disabled':''}>ลบ</button></td></tr>`;}
-function refreshModelOptions(oldName='',newName=''){const models=draftModels();for(const select of qa('[data-process-model]')){const value=oldName&&select.value===oldName?newName:select.value;select.innerHTML='<option value="">เลือก Model</option>'+[...new Set([...models,...(value?[value]:[])])].map(m=>`<option value="${safe(m)}">${safe(m)}</option>`).join('');select.value=value;}refreshProcessFilter();}
+function refreshModelOptions(oldName='',newName=''){const models=draftModels();for(const select of qa('[data-process-model]')){const value=oldName&&select.value===oldName?newName:select.value;select.innerHTML='<option value="">เลือก Line Name</option>'+[...new Set([...models,...(value?[value]:[])])].map(m=>`<option value="${safe(m)}">${safe(m)}</option>`).join('');select.value=value;}refreshProcessFilter();}
 function refreshInputMappings(){const line=q('[data-filter="line"]'),selected=line.value;line.innerHTML='<option value="">ทุกสายการผลิต</option>'+[...new Set(Object.values(Astimo.masters).map(v=>v.line))].sort().map(l=>'<option>'+safe(l)+'</option>').join('');line.value=selected;}
 function masterView(){const ro=!canMaster();q('[data-master-role]').textContent=ro?'อ่านอย่างเดียว':user.role+' · ตั้งค่าได้';q('[data-line-rows]').innerHTML=Object.entries(Astimo.masters).map(([m,v])=>modelRow(m,v.line)).join('');q('[data-master-rows]').innerHTML=Object.entries(Astimo.masters).map(([m,v])=>v.process.map((p,i)=>processRow(m,p,v.links[i])).join('')).join('');q('[data-replenishment-rows]').innerHTML=Astimo.replenishment.map(replenRow).join('');for(const s of ['[data-master-save]','[data-master-cancel]','[data-process-add]','[data-model-add]','[data-replen-add]'])q(s).hidden=ro;refreshProcessFilter();switchMasterTab(activeMasterTab);}
 function saveMasterSetup(){if(!canMaster())return;try{const pending={masters:Object.create(null),replenishment:[]};for(const row of qa('[data-line-rows] tr')){const m=row.querySelector('[data-model-name]').value.trim().toUpperCase();if(!m||Object.hasOwn(pending.masters,m))throw Error('Model ต้องไม่ว่างและไม่ซ้ำกัน');pending.masters[m]={line:row.querySelector('[data-line]').value.trim().toUpperCase(),process:[],links:[]};}for(const row of qa('[data-master-rows] tr')){const m=row.querySelector('[data-process-model]').value,p=row.querySelector('[data-process-no]').value.trim().toUpperCase(),raw=row.querySelector('[data-process-link]').value;if(!Object.hasOwn(pending.masters,m))throw Error('Process อ้างอิง Model ที่ไม่มีใน Tab Model กรุณาแก้ไขหรือลบแถวที่เกี่ยวข้อง');if(raw==='')throw Error('กรุณาระบุ Process Link');pending.masters[m].process.push(p);pending.masters[m].links.push(Number(raw));}for(const row of qa('[data-replenishment-rows] tr')){const raw=row.querySelector('[data-replen-code]').value;if(raw==='')throw Error('กรุณาระบุ Replenishment Code');pending.replenishment.push({sourceNo:Number(row.dataset.sourceNo),name:row.querySelector('[data-replen-name]').value.trim(),code:Number(raw)});}validateMasterConfig(pending);for(const r of source){const model=String(r.Model).replace(/^Plan\s+/i,'').trim().toUpperCase();if(!Object.hasOwn(pending.masters,model))throw Error('Model '+model+' ยังมีแผนอ้างอิงอยู่ กรุณาแก้แผนก่อนลบหรือเปลี่ยนชื่อ');if(!pending.replenishment.some(p=>p.sourceNo===Number(r['Replenishment Flag'])))throw Error('Source No '+r['Replenishment Flag']+' ยังมีแผนอ้างอิงอยู่');}if(!save('astemo-master-setup-v3',pending))throw Error('พื้นที่เก็บข้อมูลไม่พร้อม ยังไม่บันทึก Master');applyMasterConfig(pending);invalidate();refreshInputMappings();masterView();planView();toast('[data-master-status]','บันทึก Master ทุก Tab แล้ว · พร้อมใช้ในการนำเข้าและส่งออก CSV');}catch(e){toast('[data-master-status]',e.message,true);}}
@@ -395,7 +407,7 @@ function finishProcess(){busy=false;qa('[data-op-demo],[data-op-import],[data-op
 const rowKey=r=>JSON.stringify(r);
 function exportRows(rows,a,b,options={}){
  if(!canExport())throw Error('บัญชีนี้ไม่มีสิทธิ์ส่งออก CSV');
- const exported=new Set(history.filter(entry=>!entry.unlockedAt).flatMap(entry=>entry.keys||[]));if(rows.some(r=>exported.has(rowKey(r))))throw Error('มีรายการที่เคยส่งออกแล้ว ให้ Admin ปลดล็อกไฟล์ในประวัติก่อนส่งออกซ้ำ');
+ const exported=new Set(history.filter(entry=>!entry.unlockedAt).flatMap(entry=>entry.keys||[]));if(rows.some(r=>exported.has(rowKey(r))))throw Error('มีรายการที่เคยส่งออกแล้ว ให้ Admin หรือ PC ระบุเหตุผลเพื่อปลดล็อกไฟล์ก่อนส่งออกซ้ำ');
  const [year,month,day]=a.split('-');
  const file='Process Planing_'+year+Number(month)+Number(day)+'.csv',csv=Astimo.csv(rows),now=new Date();
  const entry={time:iso(now)+'T'+now.toTimeString().slice(0,8),display:now.toLocaleString('th-TH'),start:a,end:b,file,count:rows.length,user:user.name,role:user.role,mode:options.mode||'range',reference:options.reference||'',keys:rows.map(rowKey)};
@@ -497,7 +509,7 @@ document.querySelectorAll('[data-demo-account]').forEach(button => {
   });
 });
 eye.addEventListener('click',()=>{const show=password.type==='password';password.type=show?'text':'password';eye.textContent=show?'ซ่อน':'แสดง';eye.setAttribute('aria-pressed',String(show));});
-$('#login-form').addEventListener('submit',e=>{e.preventDefault();const name=username.value.trim().toLowerCase(),roles={demo:'Admin',admin:'Admin',pc:'PC',pd:'PD'};if(!roles[name]||password.value!=='Astemo2026'){$('#login-error').textContent='บัญชีหรือรหัสผ่านไม่ถูกต้อง ใช้ demo / pc / pd / admin และรหัส Astemo2026';return;}user={name,role:roles[name]};$('#login-error').textContent='';password.value='';password.type='password';eye.textContent='แสดง';eye.setAttribute('aria-pressed','false');try{if(remember.checked)localStorage.setItem('astemo-demo-username',name);else localStorage.removeItem('astemo-demo-username');}catch{}if(!source.length)loadSampleData();gate.hidden=true;root.hidden=false;qa('[data-page="import"]').forEach(b=>b.hidden=!canImport());q('[data-page="history"]').hidden=!canExport();q('[data-page="access"]').hidden=!isAdmin();importInput.disabled=!canImport();updateImportPicker();q('[data-session-name]').textContent=`${name} · ${user.role}`;q('header .avatar').textContent=user.role==='Admin'?'AD':user.role;sourceView();masterView();planView();page('operation');q('[data-op-process]').focus();window.scrollTo(0,0);});
+$('#login-form').addEventListener('submit',e=>{e.preventDefault();const name=username.value.trim().toLowerCase(),roles={demo:'Admin',admin:'Admin',pc:'PC',pd:'PD'};if(!roles[name]||password.value!=='Astemo2026'){$('#login-error').textContent='บัญชีหรือรหัสผ่านไม่ถูกต้อง ใช้ demo / pc / pd / admin และรหัส Astemo2026';return;}user={name,role:roles[name]};$('#login-error').textContent='';password.value='';password.type='password';eye.textContent='แสดง';eye.setAttribute('aria-pressed','false');try{if(remember.checked)localStorage.setItem('astemo-demo-username',name);else localStorage.removeItem('astemo-demo-username');}catch{}if(!source.length)loadSampleData();gate.hidden=true;root.hidden=false;qa('[data-page="import"]').forEach(b=>b.hidden=!canImport());q('[data-page="history"]').hidden=!canExport()&&!canMaster();q('[data-page="access"]').hidden=!isAdmin();importInput.disabled=!canImport();updateImportPicker();q('[data-session-name]').textContent=`${name} · ${user.role}`;q('header .avatar').textContent=user.role==='Admin'?'AD':user.role;sourceView();masterView();planView();page('operation');q('[data-op-process]').focus();window.scrollTo(0,0);});
 q('[data-logout]').addEventListener('click',()=>{if(busy){++job;clearTimeout(timer);finishProcess();}user=null;importInput.value='';updateImportPicker();root.hidden=true;gate.hidden=false;password.value='';username.focus();});
 try{const record=await readLatestImport();if(record&&record.blob instanceof Blob&&Array.isArray(record.records)){latestImportedFile=record;source=record.records;filename=record.filename;importAudit=record.audit;}}catch(err){toast('[data-source-status]',err.message,true);}
 $('#login-form button[type=submit]').disabled=false;
@@ -938,6 +950,10 @@ body { padding: 0 !important; background: #eaf0f6 !important; }
 #astimo-ui .operation-history td:nth-child(2) { overflow-wrap:anywhere; }
 #astimo-ui .operation-history button.unlock-csv { margin-top:5px; padding:4px 8px; font-size:12px; color:#183a60; }
 #astimo-ui .operation-history .unlock-status { display:inline-block; margin-top:4px; font-size:11px; color:#45576e; }
+#astimo-ui .unlock-details { margin-top:6px; min-width:150px; }
+#astimo-ui .unlock-details summary { cursor:pointer; color:#183a60; font-weight:600; }
+#astimo-ui .unlock-details form { margin-top:8px; }
+#astimo-ui .unlock-details textarea { display:block; box-sizing:border-box; width:100%; min-width:150px; padding:8px; border:1px solid #bdcddd; border-radius:4px; font:inherit; resize:vertical; }
 #astimo-ui .import-picker { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px 20px; padding:14px 16px; border:1px solid #bdcddd; border-inline-start:3px solid #3d6087; border-radius:6px; background:#f3f7fb; }
 #astimo-ui .import-picker-detail { display:grid; gap:3px; min-width:0; flex:1 1 200px; }
 #astimo-ui .import-picker-caption { color:#405978; font-size:12px; }
