@@ -1,15 +1,7 @@
 {
-  "assets/access-rights.jpg": {
-    "width": 1265,
-    "height": 1153
-  },
   "assets/data-import.jpg": {
     "width": 1265,
     "height": 950
-  },
-  "assets/export-current.jpg": {
-    "width": 1265,
-    "height": 1080
   },
   "assets/export-history.jpg": {
     "width": 1280,
@@ -18,10 +10,6 @@
   "assets/import-current.jpg": {
     "width": 1265,
     "height": 950
-  },
-  "assets/language-master.jpg": {
-    "width": 1265,
-    "height": 712
   },
   "assets/login-manual.jpg": {
     "width": 1265,
@@ -50,10 +38,6 @@
   "assets/menu-master.jpg": {
     "width": 1265,
     "height": 1236
-  },
-  "assets/operation-csv.jpg": {
-    "width": 957,
-    "height": 1245
   },
   "assets/operation-current.jpg": {
     "width": 1265,
