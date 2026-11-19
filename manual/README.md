@@ -19,3 +19,7 @@
 ## Flow การใช้งาน
 
 เปิด `flow/index.html` ผ่าน static hosting หรือ `/manual/flow/` ข้อมูลขั้นตอนอยู่ใน `flow/flows.js` ไม่มีการเรียก API ระบบจริง
+
+## Test Case
+
+เปิด `test-cases/` สำหรับ 32 เคส เฉพาะ Production Control และ Production ข้อมูลอยู่ใน `test-cases/cases.json` สร้างหน้าเว็บด้วย `node manual/test-cases/build.cjs` จากราก repo ผลทดสอบเก็บใน localStorage ของเบราว์เซอร์และพิมพ์เก็บได้ เคสยังไม่ได้รันระบบจริง
