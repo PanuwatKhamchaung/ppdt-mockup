@@ -1,0 +1,82 @@
+{
+  "assets/access-rights.jpg": {
+    "width": 1265,
+    "height": 1153
+  },
+  "assets/data-import.jpg": {
+    "width": 1265,
+    "height": 950
+  },
+  "assets/export-current.jpg": {
+    "width": 1265,
+    "height": 1080
+  },
+  "assets/export-history.jpg": {
+    "width": 1280,
+    "height": 720
+  },
+  "assets/import-current.jpg": {
+    "width": 1265,
+    "height": 950
+  },
+  "assets/language-master.jpg": {
+    "width": 1265,
+    "height": 712
+  },
+  "assets/login-manual.jpg": {
+    "width": 1265,
+    "height": 853
+  },
+  "assets/master-line.jpg": {
+    "width": 1265,
+    "height": 938
+  },
+  "assets/master-process.jpg": {
+    "width": 1265,
+    "height": 799
+  },
+  "assets/master-replenishment.jpg": {
+    "width": 1265,
+    "height": 997
+  },
+  "assets/menu-access.jpg": {
+    "width": 1265,
+    "height": 1377
+  },
+  "assets/menu-form-current.jpg": {
+    "width": 957,
+    "height": 739
+  },
+  "assets/menu-master.jpg": {
+    "width": 1265,
+    "height": 1236
+  },
+  "assets/operation-csv.jpg": {
+    "width": 957,
+    "height": 1245
+  },
+  "assets/operation-current.jpg": {
+    "width": 1265,
+    "height": 712
+  },
+  "assets/production-plans.jpg": {
+    "width": 1265,
+    "height": 1059
+  },
+  "assets/role-current.jpg": {
+    "width": 1280,
+    "height": 720
+  },
+  "assets/role-form-current.jpg": {
+    "width": 972,
+    "height": 751
+  },
+  "assets/role-master.jpg": {
+    "width": 1280,
+    "height": 720
+  },
+  "assets/user-form-current.jpg": {
+    "width": 972,
+    "height": 751
+  }
+}
