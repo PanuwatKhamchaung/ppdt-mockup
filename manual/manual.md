@@ -10,6 +10,11 @@ Production Plan Data Transformation · ภาษาไทย · ปรับป�
 
 ใช้ลิงก์ **Flow ระบบ: ดูลำดับงาน** ด้านซ้าย เพื่อดูภาพรวมและเลือกงาน เช่น นำเข้า Excel ตรวจแผน หรือส่งออก CSV คลิกกล่องในผังเพื่อดูวิธีทำ จุดตรวจ และทางเลือกเมื่อยังไม่ผ่าน
 
+### กลุ่มหัวข้อในสารบัญ
+
+- **Production Control:** Data Import, Production Plans, Master Data และ Import History
+- **Production:** Operation / CSV และ Export History
+
 ### ฉันควรเริ่มอ่านบทไหน
 
 | งานของคุณ | เริ่มที่บท | ผลที่ต้องตรวจหลังทำ |
