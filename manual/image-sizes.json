@@ -54,5 +54,13 @@
   "assets/user-form-current.jpg": {
     "width": 972,
     "height": 751
+  },
+  "assets/import-history-guide.svg": {
+    "width": 1240,
+    "height": 690
+  },
+  "assets/export-history-guide.svg": {
+    "width": 1240,
+    "height": 690
   }
 }
